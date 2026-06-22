@@ -14,16 +14,14 @@
   }
 
   if (!isLoginPage) {
-    if (localStorage.getItem(AUTH_KEY) !== '1') {
+    if (sessionStorage.getItem(AUTH_KEY) !== '1') {
       goLogin();
     }
     return;
   }
 
-  if (localStorage.getItem(AUTH_KEY) === '1') {
-    goHome();
-    return;
-  }
+  localStorage.removeItem(AUTH_KEY);
+  sessionStorage.removeItem(AUTH_KEY);
 
   async function sha256(text) {
     const data = new TextEncoder().encode(text);
@@ -38,7 +36,7 @@
     const inputHash = await sha256(input || '');
 
     if (inputHash === PASSWORD_HASH) {
-      localStorage.setItem(AUTH_KEY, '1');
+      sessionStorage.setItem(AUTH_KEY, '1');
       goHome();
       return;
     }
