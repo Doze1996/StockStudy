@@ -4,15 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>StockStudy</title>
-  <script src="assets/script/auth.js"></script>
   <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
   <main>
     <section class="card">
       <h1>StockStudy</h1>
-      <p>请输入密码进入知识库。</p>
+      <p>请输入访问码进入知识库。</p>
+      <input id="codeInput" type="text" inputmode="numeric" placeholder="访问码" style="box-sizing:border-box;width:100%;max-width:320px;padding:12px;margin:12px 0;font-size:16px;">
+      <br>
+      <button id="enterButton" style="padding:10px 20px;font-size:16px;">进入</button>
+      <p id="codeMessage" style="color:#b00020;"></p>
     </section>
   </main>
+  <script src="assets/script/login.js"></script>
 </body>
 </html>
