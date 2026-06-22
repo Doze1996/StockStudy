@@ -3,14 +3,25 @@
   const AUTH_KEY = 'stockstudy_auth';
   const repoBase = '/StockStudy/';
   const path = location.pathname;
-  const isHomePage = path.endsWith(repoBase) || path.endsWith(repoBase + 'index.html') || path.endsWith('/index.html');
+  const isLoginPage = path.endsWith(repoBase) || path.endsWith(repoBase + 'index.html') || path.endsWith('/index.html');
 
-  if (localStorage.getItem(AUTH_KEY) === '1') {
+  function goLogin() {
+    location.replace(repoBase + 'index.html');
+  }
+
+  function goHome() {
+    location.replace(repoBase + 'pages/home.html');
+  }
+
+  if (!isLoginPage) {
+    if (localStorage.getItem(AUTH_KEY) !== '1') {
+      goLogin();
+    }
     return;
   }
 
-  if (!isHomePage) {
-    location.href = repoBase + 'index.html';
+  if (localStorage.getItem(AUTH_KEY) === '1') {
+    goHome();
     return;
   }
 
@@ -22,21 +33,17 @@
       .join('');
   }
 
-  function deny(message) {
-    document.documentElement.innerHTML = '<head><title>Access Denied</title></head><body style="font-family: sans-serif; padding: 40px;"><h1>Access Denied</h1><p>' + message + '</p><p><a href="/StockStudy/index.html">返回首页</a></p></body>';
-    throw new Error('Access Denied');
-  }
-
   async function login() {
     const input = prompt('请输入访问密码');
     const inputHash = await sha256(input || '');
 
     if (inputHash === PASSWORD_HASH) {
       localStorage.setItem(AUTH_KEY, '1');
+      goHome();
       return;
     }
 
-    deny('密码错误，无法访问。');
+    document.body.innerHTML = '<main><section class="card"><h1>StockStudy</h1><p>密码错误，无法访问。</p><p><a href="/StockStudy/index.html">重新输入</a></p></section></main>';
   }
 
   login();
