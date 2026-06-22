@@ -43,7 +43,7 @@
       return;
     }
 
-    document.body.innerHTML = '<main><section class="card"><h1>StockStudy</h1><p>密码错误，无法访问。</p><p><a href="/StockStudy/index.html">重新输入</a></p></section></main>';
+    document.documentElement.innerHTML = '<body style="font-family:sans-serif;padding:40px;"><h1>StockStudy</h1><p>密码不正确。</p><p><a href="/StockStudy/index.html">重新输入</a></p></body>';
   }
 
   login();
